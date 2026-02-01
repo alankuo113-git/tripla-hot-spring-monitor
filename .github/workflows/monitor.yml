@@ -1,0 +1,32 @@
+name: Tripla Hot Spring Monitor
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # runs every hour
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install playwright requests
+          playwright install chromium
+
+      - name: Run agent
+        env:
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
+        run: python agent.py
