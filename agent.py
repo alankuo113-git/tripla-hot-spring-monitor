@@ -63,11 +63,7 @@ def run_agent():
         if any(keyword in text for keyword in KEYWORDS):
             send_email(
                 subject="🔥 HOT SPRING ROOM AVAILABLE ACT NOW",
-                body="HOT SPRING ROOM AVAILABLE ACT NOW
-                
-                HERE IS THE LINK: https://book.noguchi-g.com/booking/result?code=2e3b7560ba862e0c2aee8924912b97ae&checkin=2026%2F02%2F13&checkout=2026%2F02%2F14&type=rooms&is_day_use=false&order=price_high_to_low&is_including_occupied=false&adults=2&kids_tiers=%5B%5D&room_count=1&mcp_currency=TWD
-                
-                "
+                body="HOT SPRING ROOM AVAILABLE ACT NOW. HERE IS THE LINK: https://book.noguchi-g.com/booking/result?code=2e3b7560ba862e0c2aee8924912b97ae&checkin=2026%2F02%2F13&checkout=2026%2F02%2F14&type=rooms&is_day_use=false&order=price_high_to_low&is_including_occupied=false&adults=2&kids_tiers=%5B%5D&room_count=1&mcp_currency=TWD"
             
             )
         else:
