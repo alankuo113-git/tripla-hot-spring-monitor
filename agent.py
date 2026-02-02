@@ -25,8 +25,8 @@ BOOKING_URL = (
 )
 
 KEYWORDS = [
-    "with hot spring",
-    "展望温泉風呂付"
+    "with hot spring"
+    #,"展望温泉風呂付"
 ]
 
 # =========================
