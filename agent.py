@@ -1,7 +1,6 @@
 from playwright.sync_api import sync_playwright
 import smtplib
 from email.message import EmailMessage
-import requests
 import os
 
 # =========================
@@ -30,12 +29,12 @@ KEYWORDS = [
 # =========================
 # EMAIL ALERT
 # =========================
-def send_email():
+def send_email(subject, body):
     msg = EmailMessage()
-    msg["Subject"] = "🔥 HOT SPRING ROOM AVAILABLE ACT NOW"
+    msg["Subject"] = subject
     msg["From"] = os.environ["EMAIL_FROM"]
     msg["To"] = os.environ["EMAIL_TO"]
-    msg.set_content("HOT SPRING ROOM AVAILABLE ACT NOW")
+    msg.set_content(body)
 
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
@@ -44,18 +43,6 @@ def send_email():
             os.environ["EMAIL_PASSWORD"]
         )
         server.send_message(msg)
-
-# =========================
-# LINE ALERT
-# =========================
-def send_line():
-    requests.post(
-        "https://notify-api.line.me/api/notify",
-        headers={
-            "Authorization": f"Bearer {os.environ['LINE_NOTIFY_TOKEN']}"
-        },
-        data={"message": "🔥 HOT SPRING ROOM AVAILABLE ACT NOW"}
-    )
 
 # =========================
 # MAIN AGENT
@@ -67,14 +54,22 @@ def run_agent():
 
         page.goto(BOOKING_URL, timeout=60000)
 
-        # Give Tripla time to fully render results
+        # Allow Tripla results to fully render
         page.wait_for_timeout(10000)
 
         text = page.inner_text("body").lower()
 
         if any(keyword in text for keyword in KEYWORDS):
-            send_email()
-            
+            send_email(
+                subject="🔥 HOT SPRING ROOM AVAILABLE ACT NOW",
+                body="HOT SPRING ROOM AVAILABLE ACT NOW"
+            )
+        else:
+            send_email(
+                subject="❌ No Hot Spring Availability",
+                body="NO MATCH FOUND :("
+            )
+
         browser.close()
 
 # =========================
