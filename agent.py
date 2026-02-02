@@ -24,9 +24,7 @@ BOOKING_URL = (
 )
 
 KEYWORDS = [
-    "with hot spring",
-    "hot spring",
-    "onsen"
+    "with hot spring"
 ]
 
 # =========================
@@ -76,8 +74,7 @@ def run_agent():
 
         if any(keyword in text for keyword in KEYWORDS):
             send_email()
-            send_line()
-
+            
         browser.close()
 
 # =========================
