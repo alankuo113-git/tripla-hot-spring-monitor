@@ -28,5 +28,4 @@ jobs:
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
         run: python agent.py
